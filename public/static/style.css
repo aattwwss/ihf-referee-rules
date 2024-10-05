@@ -1,11 +1,20 @@
+:root {
+    scroll-behavior: smooth;
+}
+
+.hide {
+    display: none;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 0 20px; /* Only left and right padding */
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 }
 
 header {
@@ -14,7 +23,7 @@ header {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
     display: flex;
-    justify-content: flex-start; /* Align items to the left */
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -24,7 +33,6 @@ header {
     justify-content: space-between;
     width: 100%;
 }
-
 
 .header-icon {
     width: 40px;
@@ -46,7 +54,7 @@ header {
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px; /* Space between links */
+    gap: 20px;
     margin: 0;
     padding: 0;
 }
@@ -61,9 +69,9 @@ header {
     text-decoration: underline;
 }
 
-.floating-menu, .floating-toggle, .floating-clear {
+.floating {
     position: fixed;
-    bottom: 20px; /* Adjust position if necessary */
+    bottom: 20px;
     right: 20px;
     background-color: #007bff;
     color: white;
@@ -74,22 +82,50 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     z-index: 1000;
-    font-size: 1.2em; /* Font size for icon */
+    font-size: 1.2em;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.floating-scroll {
+    text-decoration: none;
+    display: none;
+    right: 50%;
+    top: 20px;
+    opacity: 0.5;
+}
+
 .floating-menu {
-    bottom: 140px; /* Adjusted position to be above floating-toggle */
+    bottom: 200px;
 }
 
 .floating-clear {
-    bottom: 80px; /* Adjusted position to be above floating-toggle */
+    bottom: 140px;
 }
 
-.floating-toggle.hide {
-    background-color: #ff6347; /* Change color for the 'Hide Answer' state */
+.floating-reference-toggle {
+    bottom: 80px;
+}
+
+.floating-toggle.toggled,
+.floating-reference-toggle.toggled {
+    background-color: #ff6347;
+}
+
+@media (max-width: 760px) {
+
+    .floating-menu,
+    .floating-reference-toggle,
+    .floating-toggle,
+    .floating-clear {
+        opacity: 0.7;
+    }
+
+    .floating-toggle.toggled,
+    .floating-reference-toggle.toggled {
+        opacity: 0.7;
+    }
 }
 
 .menu-items {
@@ -103,7 +139,7 @@ header {
     z-index: 1000;
     border-radius: 8px;
     overflow: hidden;
-    width: 320px; /* Match the overall width of floating-toggle */
+    width: 320px;
     max-height: 300px;
     overflow-y: scroll;
 }
@@ -122,7 +158,7 @@ header {
 .questions-container {
     max-width: 600px;
     width: 100%;
-    margin-top: 20px; /* Ensure there's no extra space caused by the toggle */
+    margin-top: 20px;
 }
 
 .question-card {
@@ -135,8 +171,8 @@ header {
 }
 
 .question-card.read {
-    background-color: #e0e0e0; /* Light gray to reduce focus */
-    color: #888; /* Muted text color */
+    background-color: #e0e0e0;
+    color: #888;
 }
 
 .question-header {
@@ -156,6 +192,49 @@ header {
     margin-bottom: 20px;
 }
 
+.question-number-and-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.question-card-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.question-card-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 2px;
+    font-size: 1em;
+    color: #777;
+    transition: color 0.3s ease;
+}
+
+.question-card-button:hover {
+    color: #007bff;
+}
+
+.question-card-button i {
+    font-size: 1.1em;
+}
+
+@media (max-width: 600px) {
+    .question-number-and-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .question-card-buttons {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
 .choices {
     display: flex;
     flex-direction: column;
@@ -164,12 +243,12 @@ header {
 .choice {
     margin-bottom: 10px;
     display: flex;
-    align-items: flex-start; /* Ensure alignment with checkbox */
+    align-items: flex-start;
 }
 
 .choice input[type="checkbox"] {
     margin-right: 10px;
-    margin-top: 2px; /* Adjust the checkbox alignment */
+    margin-top: 2px;
 }
 
 .read-toggle {
@@ -205,11 +284,11 @@ header {
     transition: 0.4s;
 }
 
-.read-toggle .read-checkbox:checked + .slider {
+.read-toggle .read-checkbox:checked+.slider {
     background-color: #007bff;
 }
 
-.read-toggle .read-checkbox:checked + .slider:before {
+.read-toggle .read-checkbox:checked+.slider:before {
     transform: translateX(14px);
 }
 
@@ -223,16 +302,6 @@ header {
 
 .missing {
     background-color: yellow;
-}
-
-@media (max-width: 760px) {
-    .floating-menu, .floating-toggle, .floating-clear {
-        background-color: rgba(0, 123, 255, 0.8); /* Translucent blue */
-    }
-
-    .floating-toggle.hide {
-        background-color: rgba(255, 99, 71, 0.8); /* Translucent red */
-    }
 }
 
 /*Feedback Page*/
@@ -264,11 +333,11 @@ header {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 0;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box;
 }
 
 .feedback-form-group textarea {
-    resize: none; /* Prevent resizing of the textarea */
+    resize: none;
 }
 
 button[type="submit"] {
@@ -279,8 +348,133 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 1em;
+    margin-bottom: 20px;
 }
 
 button[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+.quiz-form-container {
+    max-width: 600px;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.quiz-form-group {
+    margin-bottom: 15px;
+}
+
+.quiz-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.quiz-form-group input,
+.quiz-form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.quiz-form-group select[name='rules-filter'] {
+    height: 250px;
+}
+
+.rules-filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rules-filter-container .icons {
+    display: flex;
+    gap: 5px;
+}
+
+#rules-filter-select-all {
+    color: green;
+    cursor: pointer;
+}
+
+#rules-filter-clear-all {
+    color: red;
+    cursor: pointer;
+}
+
+.question-score {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.total-score {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.references {
+    margin-top: 20px;
+    padding: 1px 25px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #007bff;
+    border-radius: 8px;
+}
+
+.references h3 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.references ul {
+    padding-left: 20px;
+    list-style-type: square;
+}
+
+.references ul li {
+    font-size: 0.9em;
+    line-height: 1.4em;
+    margin-bottom: 5px;
+}
+
+/* Error Page */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.error-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.error-title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ff6347;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #333;
 }

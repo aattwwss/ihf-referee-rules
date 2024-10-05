@@ -42,6 +42,11 @@ type Reference struct {
 	Text       string
 }
 
+// soome rule question number uses comma, while others uses colon
+func ruleQuestionNumSeparator(r rune) bool {
+	return r == ':' || r == '.'
+}
+
 func ParseQuestion(tokens []token.Token, answerMap map[string]map[int]AnswersAndReferences) []Question {
 	var allQuestions []Question
 	groups := groupByQuestions(tokens)
@@ -70,7 +75,7 @@ func splitQuestion(s string) (Rule, int, string) {
 		qString = s[3:4]
 	} else {
 		s = s[0:bracketIndex]
-		arr := strings.Split(s, ".")
+		arr := strings.FieldsFunc(s, ruleQuestionNumSeparator)
 		ruleId = arr[0]
 		qString = arr[1]
 	}
@@ -214,11 +219,6 @@ func splitAnswer(s string) (string, int, []string, []string) {
 	correctAnswers := strings.Split(fields[1], ", ")
 	references := strings.Split(fields[2], ", ")
 	return rule, questionNumber, correctAnswers, references
-}
-
-// soome rule question number uses comma, while others uses colon
-func ruleQuestionNumSeparator(r rune) bool {
-	return r == ':' || r == '.'
 }
 
 // given the rule and question number, return the rule and the question number

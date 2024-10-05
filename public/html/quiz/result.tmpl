@@ -1,0 +1,32 @@
+{{block "content" .}}
+<div class="questions-container">
+    <div class="total-score">
+        You scored <span id="total-score">{{.Score}}</span> out of {{.TotalScore}} ({{.Percent}}%)
+    </div>
+    {{range .QuestionResults}}
+    <div class="question-card" id="question-{{.RuleQuestionNumber}}">
+        <div class="question-header">
+            <div class="question-number">Question {{.ID}}:</div>
+            <div class="question-score">Score: <span class="score">{{.Score}}/{{.TotalScore}}</span></div>
+        </div>
+        <div class="question-text">{{.Text}}</div>
+        <div class="choices">
+            {{range .Choices}}
+            <label class="choice {{.Result}}">
+                <input type="checkbox" name="choice{{.ID}}" value="{{.Option}}" disabled {{if
+                    .IsSelected}}checked{{end}}> {{.Text}}
+            </label>
+            {{end}}
+        </div>
+        <div class="references">
+            <h3>References</h3>
+            <ul>
+                {{range .References}}
+                <li>{{.Text}}</li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+    {{end}}
+</div>
+{{end}}

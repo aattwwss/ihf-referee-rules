@@ -53,17 +53,17 @@ func main() {
 	// Handle requests to /static/ using the file server
 	http.Handle("GET /static/", http.StripPrefix("/static/", fileServer))
 
-	// Handle the root URL ("/") by serving an HTML file (e.g., index.html)
+	http.HandleFunc("GET /health", controller.Health)
+
 	http.HandleFunc("GET /", controller.Home)
+
 	http.HandleFunc("GET /feedback", controller.Feedback)
 	http.HandleFunc("POST /feedback", controller.SubmitFeedback)
-	//http.HandleFunc("GET /random-question", controller.RandomQuestion)
-	//http.HandleFunc("GET /question-list", controller.QuestionList)
-	//http.HandleFunc("GET /question", controller.QuestionByID)
-	//
-	//http.HandleFunc("POST /submit/", controller.Result)
-	//http.HandleFunc("GET /new-question", controller.NewQuestion)
-	http.HandleFunc("GET /health", controller.Health)
+
+	http.HandleFunc("GET /quiz", controller.QuizConfig)
+	http.HandleFunc("POST /quiz", controller.SubmitQuizConfig)
+	http.HandleFunc("GET /quiz/{key}", controller.DoQuiz)
+	http.HandleFunc("POST /quiz/{key}", controller.SubmitQuiz)
 
 	// Set up and start the HTTP server on port 8080
 	port := "8080"

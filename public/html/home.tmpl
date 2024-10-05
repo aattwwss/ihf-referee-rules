@@ -1,35 +1,54 @@
 {{block "content" .}}
-    <div class="questions-container">
-        {{range .}}
-            <div class="question-card" data-correct="{{.CorrectChoices}}" id="question-{{.RuleQuestionNumber}}">
-                <div class="question-header">
-                    <div class="question-number">Question {{.ID}}:</div>
-                    <label class="read-toggle">
-                        <input type="checkbox" class="read-checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="question-text">{{.RuleQuestionNumber}}) {{.Text}}</div>
-                <div class="choices">
-                    {{range .Choices}}
-                        <label class="choice">
-                            <input type="checkbox" name="choice{{.ID}}" value="{{.Option}}"> {{.Text}}
-                        </label>
-                    {{end}}
+<div class="questions-container">
+    {{range .}}
+    <div class="question-card" data-correct="{{.CorrectChoices}}" id="question-{{.RuleQuestionNumber}}">
+        <div class="question-header">
+            <div class="question-number-and-actions">
+                <div class="question-number">Question {{.ID}}</div>
+                <div class="question-card-buttons">
+                    <button class="question-card-button single-reference-toggle" title="Show/Hide reference"><i
+                            class="fas fa-book"></i></button>
+                    <button class="question-card-button single-answer-toggle" title="Show/Hide answers"><i
+                            class="fas fa-eye"></i></button>
                 </div>
             </div>
-        {{end}}
+            <label class="read-toggle">
+                <input type="checkbox" class="read-checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="question-text">{{.RuleQuestionNumber}}) {{.Text}}</div>
+        <div class="choices">
+            {{range .Choices}}
+            <label class="choice">
+                <input type="checkbox" name="choice{{.ID}}" value="{{.Option}}"> {{.Text}}
+            </label>
+            {{end}}
+        </div>
+        <div class="references hide">
+            <h3>References</h3>
+            <ul>
+                {{range .References}}
+                <li>{{.Text}}</li>
+                {{end}}
+            </ul>
+        </div>
     </div>
-    <div class="floating-menu" id="menu-button" tabindex="0" title="Jump to rule"><i class="fas fa-bars"></i></div>
-    <div class="menu-items" id="menu-items">
-        {{- range .}}
-            {{- if eq .QuestionNumber 1}}
-                <div class="menu-item"
-                     onclick="scrollToQuestion('question-{{.RuleQuestionNumber}}')">{{.RuleName}}</div>
-            {{- end}}
-        {{- end -}}
-    </div>
-    <button class="floating-clear" id="clear-button" title="Clear All Options"><i class="fas fa-times"></i></button>
-    <button class="floating-toggle" id="toggle-button" title="Show/Hide answers"><i class="fas fa-eye"></i></button>
-    <script src="static/home.js" defer></script>
+    {{end}}
+</div>
+<div class="floating floating-menu" id="menu-button" tabindex="0" title="Jump to rule"><i class="fas fa-bars"></i></div>
+<div class="menu-items" id="menu-items">
+    {{- range .}}
+    {{- if eq .QuestionNumber 1}}
+    <div class="menu-item" onclick="scrollToQuestion('question-{{.RuleQuestionNumber}}')">{{.RuleName}}</div>
+    {{- end}}
+    {{- end -}}
+</div>
+<button class="floating floating-reference-toggle" id="toggle-reference-button" title="Show/Hide references"><i
+        class="fas fa-book"></i></button>
+<button class="floating floating-clear" id="clear-button" title="Clear All Options"><i
+        class="fas fa-times"></i></button>
+<button class="floating floating-toggle" id="toggle-button" title="Show/Hide answers"><i
+        class="fas fa-eye"></i></button>
+<script src="/static/home.js" defer></script>
 {{end}}

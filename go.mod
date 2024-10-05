@@ -7,6 +7,7 @@ require (
 	github.com/jackc/pgx/v5 v5.5.5
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/exp v0.0.0-20240318143956-a85f2c67cd81
+	github.com/sethvargo/go-diceware v0.4.0
 )
 
 require (

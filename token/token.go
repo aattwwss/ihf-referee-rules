@@ -18,7 +18,7 @@ const (
 )
 
 func (tt Type) String() string {
-	return []string{"PAGE_NUMBER", "RULE_NUMBER", "QUESTION_START", "CHOICE_START", "FREE_TEXT","IGNORE"}[tt]
+	return []string{"PAGE_NUMBER", "RULE_NUMBER", "QUESTION_START", "CHOICE_START", "FREE_TEXT", "IGNORE"}[tt]
 
 }
 
@@ -62,9 +62,11 @@ func NewTokenizer() Tokenizer {
 	// line starts with the rule number and question number follow by a close bracket
 	// also account for the Substitution Area Regulator that starts with "SAR"
 	// e.g. 12.34) some other text
+	// e.g. 12:34) some other text
+	// e.g. SAR1) some other text
 	questionStartMatcher := func(s string) bool {
 		s = strings.TrimSpace(s)
-		regex := regexp.MustCompile(`^(\d+\.\d+\)|SAR\d\)) .+$`)
+		regex := regexp.MustCompile(`^(\d+[.:]\d+\)|SAR\d\)) .+$`)
 		return regex.MatchString(s)
 	}
 	questionStartTokenPattern := Pattern{

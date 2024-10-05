@@ -1,0 +1,42 @@
+{{block "content" .}}
+<div class="quiz-form-container">
+    <h2>Quiz Configuration</h2>
+    <form id="quiz-config-form" method="post">
+        <input type="hidden" id="seed" name="seed" value="{{.Seed}}">
+        <div class="quiz-form-group">
+            <label for="num-questions">Number of Questions:</label>
+            <input class="number-input" type="text" inputmode="numeric" id="num-questions" name="num-questions"
+                value="20" max="{{.MaxNumQuestions}}" required>
+        </div>
+        <!--<div class="quiz-form-group">
+                <label for="duration">Duration (minutes):</label>
+                <input class="number-input" type="text" inputMode="numeric" id="duration" name="duration" value="60"
+                       required>
+            </div> -->
+        <div class="quiz-form-group">
+            <div class="rules-filter-container">
+                <label for="rules-filter">Rules Topics Tested:</label>
+                <div class="icons">
+                    <i title="select all rules" id="rules-filter-select-all" class="fas fa-check-square"></i>
+                    <i title="clear all rules" id="rules-filter-clear-all" class="fas fa-times-circle"></i>
+                </div>
+            </div>
+            <select id="rules-filter" name="rules-filter" multiple required>
+                {{ range .RulesFilter }}
+                <option selected value="{{.ID}}">{{ .ID }} - {{ .Name }}</option>
+                {{ end }}
+            </select>
+        </div>
+        <div class="quiz-form-group">
+            <label for="negative-marking" title="points for each question will not be below zero">Negative
+                Marking:</label>
+            <select id="negative-marking" name="negative-marking" required>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            </select>
+        </div>
+        <button type="submit">Start Quiz</button>
+    </form>
+</div>
+<script src="/static/quizConfig.js"></script>
+{{ end }}

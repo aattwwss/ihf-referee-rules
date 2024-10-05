@@ -1,0 +1,23 @@
+{{block "content" .}}
+    <div class="questions-container">
+        <form id="quiz-form" method="post">
+            {{range .}}
+                <div class="question-card" id="question-{{.RuleQuestionNumber}}">
+                    <div class="question-header">
+                        <div class="question-number">Question {{.ID}}:</div>
+                    </div>
+                    <div class="question-text">{{.Text}}</div>
+                    <div class="choices">
+                        {{range .Choices}}
+                            <label class="choice">
+                                <input type="checkbox" name="choice{{.ID}}" value="{{.Option}}"> {{.Text}}
+                            </label>
+                        {{end}}
+                    </div>
+                </div>
+            {{end}}
+            <button type="submit" id="quiz-submit-button">Submit</button>
+        </form>
+    </div>
+        <script src="/static/quiz.js"></script>
+{{end}}

@@ -63,3 +63,10 @@ json output example
   }
 ]
 ```
+
+# Do a referee test
+## Configuration
+- Number of questions
+- Duration
+- Topics/Rules tested
+- Negative Marking (Wrong answers minus one mark)
